@@ -1,116 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Valentine Surprise 💖</title>
+<meta charset="UTF-8">
+<title>Valentine Surprise 💖</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #fff0f5;
-      padding: 50px;
-    }
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #fff0f5;
+    padding: 50px;
+    overflow: hidden;
+  }
 
-    h1 {
-      color: #e75480;
-      font-size: 3em;
-    }
+  h1 { color: #e75480; font-size: 3em; }
+  h2 { color: #e75480; font-size: 2em; }
 
-    h2 {
-      color: #e75480;
-      font-size: 2em;
-      margin-top: 20px;
-    }
+  .btn {
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 8px;
+    color: white;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.3s;
+  }
 
-    .btn {
-      padding: 15px 30px;
-      font-size: 20px;
-      border-radius: 8px;
-      color: white;
-      text-decoration: none;
-      margin: 10px;
-      display: inline-block;
-      cursor: pointer;
-      transition: transform 0.2s;
-      border: none;
-    }
+  .yes { background-color: #e75480; }
+  .no {
+    background-color: #aaa;
+    position: relative;
+  }
 
-    .btn:hover {
-      transform: scale(1.1);
-    }
+  /* Floating hearts */
+  .heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 24px;
+    animation: float 6s linear infinite;
+    color: #e75480;
+  }
 
-    .yes {
-      background-color: #e75480;
-    }
-
-    .no {
-      background-color: #aaa;
-      position: relative;
-    }
-  </style>
+  @keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+  }
+</style>
 </head>
 
 <body>
 
-  <h1>Happy Valentine’s Day 💖</h1>
-  <p>Hey love 😘 I have a very important question for you…</p>
-  <h2>Will you be my Valentine? 💌</h2>
+<h1>Happy Valentine’s Day 💖</h1>
+<p>Hey love 😘 I have a question for you…</p>
+<h2>Will you be my Valentine? 💌</h2>
 
-  <div>
-    <button class="btn yes" onclick="showYes()">Yes 💖</button>
-    <button class="btn no" id="noBtn" onclick="clickNo()" onmouseover="moveNo()">No ❌</button>
-  </div>
+<button class="btn yes" id="yesBtn" onclick="yesClick()">Yes 💖</button>
+<button class="btn no" id="noBtn" onclick="noClick()" onmouseover="moveNo()">No ❌</button>
 
-  <!-- Confetti library -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <script>
-    let noClickCount = 0;
+<script>
+let noCount = 0;
+let yesScale = 1;
 
-    function showYes() {
-      confetti({
-        particleCount: 200,
-        spread: 100,
-        origin: { y: 0.6 }
-      });
+function yesClick() {
+  confetti({
+    particleCount: 300,
+    spread: 120,
+    startVelocity: 45
+  });
 
-      setTimeout(() => {
-        window.location.href = "yes.html";
-      }, 1200);
-    }
+  setTimeout(() => {
+    window.location.href = "yes.html";
+  }, 1200);
+}
 
-    function clickNo() {
-      noClickCount++;
+function noClick() {
+  noCount++;
+  yesScale += 0.15;
+  document.getElementById("yesBtn").style.transform = `scale(${yesScale})`;
 
-      if (noClickCount === 1) {
-        alert("Really? 🥺");
-      } 
-      else if (noClickCount === 2) {
-        alert("Are you sure? 😳");
-      } 
-      else if (noClickCount === 3) {
-        alert("I’m sorry 😌 You don’t have rights to click NO!");
-      } 
-      else if (noClickCount === 4) {
-        alert("STOP IT 😤 Shut up and click YES now!");
+  if (noCount === 1) alert("Really? 🥺");
+  else if (noCount === 2) alert("Are you sure? 😳");
+  else if (noCount === 3) alert("Sorry 😌 You don’t have rights to click NO!");
+  else if (noCount === 4) {
+    alert("STOP IT 😤 Shut up and click YES now!");
+    const noBtn = document.getElementById("noBtn");
+    noBtn.disabled = true;
+    noBtn.style.opacity = "0.4";
+    noBtn.style.cursor = "not-allowed";
+  }
+}
 
-        const noBtn = document.getElementById("noBtn");
-        noBtn.disabled = true;
-        noBtn.style.opacity = "0.5";
-        noBtn.style.cursor = "not-allowed";
-      }
-    }
+function moveNo() {
+  if (noCount >= 4) return;
+  const btn = document.getElementById("noBtn");
+  btn.style.transform =
+    `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px) scale(${1 - noCount*0.1})`;
+}
 
-    function moveNo() {
-      if (noClickCount >= 4) return;
-
-      const noBtn = document.getElementById("noBtn");
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 200 - 100;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    }
-  </script>
+/* Floating hearts generator */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 400);
+</script>
 
 </body>
 </html>
