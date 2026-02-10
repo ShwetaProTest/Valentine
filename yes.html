@@ -4,69 +4,87 @@
 <meta charset="UTF-8">
 <title>My Valentine 💖</title>
 
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     text-align: center;
-    background-color: #fff0f5;
-    padding: 70px;
+    background: linear-gradient(to bottom right, #ffe6f0, #fff7fc);
+    padding: 80px 20px;
     overflow: hidden;
+    color: #333;
   }
 
   h1 {
-    color: #ff77a9;
-    font-size: 3em;
-    text-shadow: 2px 2px 10px rgba(231,84,128,0.6);
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5em;
+    color: #d1476f;
+    text-shadow: 2px 2px 8px rgba(209,71,111,0.4);
+    margin-bottom: 30px;
   }
 
   p {
-    font-size: 1.8em;
-    margin-top: 30px;
-    color: #e75480;
-    text-shadow: 1px 1px 5px rgba(255,117,169,0.5);
+    font-size: 1.6em;
+    margin-top: 20px;
+    color: #5a3a4a;
+    line-height: 1.6;
   }
 
-  .heart {
-    font-size: 4em;
-    animation: pulse 1.5s infinite;
+  /* SR Heart Animation */
+  #sr-container {
     position: relative;
-    top: 20px;
-  }
-
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.4); }
-    100% { transform: scale(1); }
-  }
-
-  .close-btn {
+    display: inline-block;
+    font-size: 4em;
     margin-top: 40px;
-    padding: 10px 25px;
-    font-size: 16px;
-    border-radius: 50px;
-    background: linear-gradient(45deg, #ff77a9, #e75480);
+    font-family: 'Great Vibes', cursive;
+    color: #d1476f;
+  }
+
+  .floating-heart {
+    position: absolute;
+    font-size: 1.5em;
+    animation: floatHeart 2.5s linear infinite;
+    color: #ff6680;
+  }
+
+  @keyframes floatHeart {
+    0% { transform: translate(0,0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(1); opacity: 0; }
+  }
+
+  /* Close button */
+  .close-btn {
+    margin-top: 60px;
+    padding: 8px 18px;
+    font-size: 14px;
+    border-radius: 40px;
+    background: linear-gradient(45deg, #d1476f, #ff9ab0);
     color: white;
     border: none;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     transition: transform 0.3s, box-shadow 0.3s;
   }
 
-  .close-btn:hover { transform: scale(1.1); box-shadow: 0 8px 20px rgba(231,84,128,0.6); }
+  .close-btn:hover { transform: scale(1.05); box-shadow: 0 6px 18px rgba(209,71,111,0.5); }
 </style>
 </head>
 
 <body>
 
-<h1>Yay! You said YES! 💖✨</h1>
+<h1>Yay! You said YES! 💖</h1>
 
 <p>
-My heart is dancing with joy 😘❤️<br><br>
+My heart is dancing with joy 😘<br>
 Thank you for being my forever Valentine 💌<br>
 I can’t wait to hug you tight and celebrate our love today 🥰🎉
 </p>
 
-<div class="heart">❤️</div>
+<!-- SR Heart -->
+<div id="sr-container">SR</div>
 
 <button class="close-btn" onclick="closePage()">Close 💌</button>
 
@@ -80,6 +98,31 @@ function closePage() {
   window.close();
   setTimeout(() => { window.location.href = "index.html"; }, 200);
 }
+
+// Floating hearts around SR
+const srContainer = document.getElementById("sr-container");
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "floating-heart";
+  heart.innerHTML = "❤️";
+
+  // Randomize direction around SR
+  const angle = Math.random() * 2 * Math.PI;
+  const radius = 50 + Math.random() * 30; // distance from SR
+  const x = Math.cos(angle) * radius + "px";
+  const y = Math.sin(angle) * radius + "px";
+
+  heart.style.setProperty("--x", x);
+  heart.style.setProperty("--y", y);
+
+  srContainer.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 2500);
+}
+
+// Generate multiple hearts every 300ms
+setInterval(createHeart, 300);
 </script>
 
 </body>
