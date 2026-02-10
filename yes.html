@@ -17,7 +17,7 @@ body {
 }
 
 h1 {
-    font-family: 'Parisienne', cursive;
+    font-family: 'Great Vibes', cursive;
     font-size: 4em;
     color: #d1476f;
     margin-bottom: 15px;
@@ -32,30 +32,13 @@ p {
 
 #heart-container {
     position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 30px auto; /* smaller gap */
-}
-
-.heart-svg {
-    width: 100px;
-    height: 100px;
-    fill: #d1476f;
-    opacity: 0;
-    transform: scale(0);
-    transition: all 0.5s ease;
-}
-
-.heart-text {
-    font-family: 'Great Vibes', cursive;
-    font-size: 1.5em;
-    fill: white;
-    text-anchor: middle;
-    dominant-baseline: middle;
+    width: 220px;
+    height: 220px;
+    margin: 30px auto;
 }
 
 .close-btn {
-    margin-top: 20px;
+    margin-top: 15px;
     padding: 8px 18px;
     font-size: 14px;
     border-radius: 40px;
@@ -101,8 +84,8 @@ function closePage() {
 }
 
 const container = document.getElementById("heart-container");
-let heartSize = 100; // initial heart size
-let fontSize = 1.5;  // initial SR font size
+let heartSize = 120; // initial heart size
+let fontSize = 36;   // SR font size in px
 
 function animateHeart() {
     container.innerHTML = "";
@@ -110,25 +93,33 @@ function animateHeart() {
     // Create SVG heart
     const svgNS = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("class", "heart-svg");
     svg.setAttribute("width", heartSize);
     svg.setAttribute("height", heartSize);
     svg.setAttribute("viewBox", "0 0 32 29.6");
 
-    // Heart path
+    // Heart path (fancier, more symmetrical)
     const path = document.createElementNS(svgNS, "path");
     path.setAttribute("d", "M23.6,0c-2.9,0-5.6,1.7-7.6,4.3C13.9,1.7,11.2,0,8.3,0C3.7,0,0,3.7,0,8.3c0,9.1,16,21.3,16,21.3S32,17.4,32,8.3 C32,3.7,28.3,0,23.6,0z");
+    path.setAttribute("fill", "#d1476f");
     svg.appendChild(path);
 
     // SR text
     const text = document.createElementNS(svgNS, "text");
+    text.setAttribute("x", "16"); // center of viewBox
+    text.setAttribute("y", "17"); // vertical center
     text.setAttribute("class", "heart-text");
-    text.setAttribute("x", "16");
-    text.setAttribute("y", "14.5");
-    text.setAttribute("font-size", fontSize + "em");
+    text.setAttribute("font-size", fontSize);
+    text.setAttribute("fill", "#fff");
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("dominant-baseline", "middle");
+    text.setAttribute("font-family", "'Great Vibes', cursive");
     text.textContent = "SR";
     svg.appendChild(text);
 
+    // Initial invisible + scale
+    svg.style.opacity = 0;
+    svg.style.transform = "scale(0)";
+    svg.style.transition = "all 0.5s ease";
     container.appendChild(svg);
 
     // Animate in
@@ -144,8 +135,8 @@ function animateHeart() {
     }, 3000);
 
     // Increase size for next heart
-    heartSize += 15;  // bigger heart next time
-    fontSize += 0.2;  // bigger SR
+    heartSize += 15;
+    fontSize += 5; // adjust SR size proportionally
 }
 
 // Repeat every 3.5 seconds
