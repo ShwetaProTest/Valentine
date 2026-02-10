@@ -16,25 +16,44 @@
   h1 { color: #e75480; font-size: 3em; }
   h2 { color: #e75480; font-size: 2em; }
 
+  /* Button styles */
   .btn {
-    padding: 15px 30px;
-    font-size: 20px;
-    border-radius: 8px;
+    padding: 12px 25px;          /* smaller padding */
+    font-size: 16px;             /* smaller font */
+    border-radius: 50px;         /* pill shape */
     color: white;
     margin: 10px;
     cursor: pointer;
     border: none;
-    transition: transform 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    letter-spacing: 1px;
   }
 
-  .btn:hover {
-    transform: scale(1.1);
+  .yes {
+    background: linear-gradient(45deg, #ff77a9, #e75480);
   }
 
-  .yes { background-color: #e75480; }
   .no {
-    background-color: #aaa;
+    background: linear-gradient(45deg, #bbb, #888);
     position: relative;
+  }
+
+  .yes:hover {
+    transform: scale(1.15);
+    box-shadow: 0 8px 20px rgba(231,84,128,0.6);
+  }
+
+  .no:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(136,136,136,0.6);
+  }
+
+  .no:disabled {
+    background: #ccc !important;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.5;
   }
 
   /* Floating hearts */
@@ -58,13 +77,14 @@
 <h1>Happy Valentine’s Day 💖</h1>
 
 <!-- Cute Bunny Image -->
-<img src="bunny.png"
+<img src="bunny.png" 
      alt="Cute Bunny" 
      style="width:200px; margin-bottom:20px; border-radius:20px;">
 
 <p>Hey love 😘 I have a very important question for you…</p>
 <h2>Will you be my Valentine? 💌</h2>
 
+<!-- Buttons -->
 <button class="btn yes" id="yesBtn" onclick="yesClick()">Yes 💖</button>
 <button class="btn no" id="noBtn" onclick="noClick()" onmouseover="moveNo()">No ❌</button>
 
