@@ -17,7 +17,7 @@
   h1 { color: #e75480; font-size: 3em; }
   h2 { color: #e75480; font-size: 2em; }
 
-  /* Button styles */
+  /* Buttons */
   .btn {
     padding: 12px 25px;          
     font-size: 16px;             
@@ -33,23 +33,11 @@
     z-index: 1;
   }
 
-  .yes {
-    background: linear-gradient(45deg, #ff77a9, #e75480);
-  }
+  .yes { background: linear-gradient(45deg, #ff77a9, #e75480); }
+  .no  { background: linear-gradient(45deg, #bbb, #888); }
 
-  .no {
-    background: linear-gradient(45deg, #bbb, #888);
-  }
-
-  .yes:hover {
-    transform: scale(1.15);
-    box-shadow: 0 8px 20px rgba(231,84,128,0.6);
-  }
-
-  .no:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 20px rgba(136,136,136,0.6);
-  }
+  .yes:hover { transform: scale(1.15); box-shadow: 0 8px 20px rgba(231,84,128,0.6); }
+  .no:hover  { transform: scale(1.1); box-shadow: 0 8px 20px rgba(136,136,136,0.6); }
 
   /* Floating hearts */
   .heart {
@@ -65,20 +53,39 @@
     100% { transform: translateY(-100vh); opacity: 0; }
   }
 
-  /* NO popup message bubble */
-  #no-message {
-    position: absolute;
-    padding: 10px 15px;
-    background: #ff77a9;
-    color: white;
-    border-radius: 15px;
-    font-size: 14px;
-    display: none;
-    pointer-events: none;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  /* NO message container */
+  #no-message-container { position:absolute; top:200px; left:50px; }
+
+  /* Individual NO messages */
+  .no-message {
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 5px;
+    padding: 8px 12px;
+    background: #ffd1dc;
+    color: #e75480;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    white-space: nowrap;
+    opacity: 0;
+    transform: scale(0.8);
     transition: transform 0.3s, opacity 0.3s;
-    z-index: 2;
+    position: relative;
   }
+
+  .no-message::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -6px;
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #ffd1dc transparent transparent;
+  }
+
 </style>
 </head>
 
@@ -98,8 +105,8 @@
 <button class="btn yes" id="yesBtn" onclick="yesClick()">Yes 💖</button>
 <button class="btn no" id="noBtn" onclick="noClick()" onmouseover="moveNo()">No ❌</button>
 
-<!-- NO popup container -->
-<div id="no-message"></div>
+<!-- NO message container -->
+<div id="no-message-container"></div>
 
 <!-- Confetti library -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -107,37 +114,34 @@
 <script>
 let noCount = 0;
 let yesScale = 1;
+let noMessageIndex = 0;
 
 function yesClick() {
-  confetti({
-    particleCount: 300,
-    spread: 120,
-    startVelocity: 45
-  });
-  setTimeout(() => {
-    window.location.href = "yes.html";
-  }, 1200);
+  confetti({ particleCount: 300, spread: 120, startVelocity: 45 });
+  setTimeout(() => { window.location.href = "yes.html"; }, 1200);
 }
 
 function showNoMessage(msg) {
-    const bubble = document.getElementById("no-message");
-    const noBtn = document.getElementById("noBtn");
-
+    const container = document.getElementById("no-message-container");
+    const bubble = document.createElement("div");
+    bubble.className = "no-message";
     bubble.innerText = msg;
-    bubble.style.display = "block";
 
-    // Position near NO button
-    const rect = noBtn.getBoundingClientRect();
-    bubble.style.top = (rect.top - 50) + "px"; 
-    bubble.style.left = (rect.left + rect.width / 2 - bubble.offsetWidth / 2) + "px";
+    // horizontal offset for multiple bubbles
+    bubble.style.left = (noMessageIndex * 190) + "px";
+    noMessageIndex++;
 
-    // Animate fade in + out
-    bubble.style.opacity = 1;
-    bubble.style.transform = "scale(1.1)";
+    container.appendChild(bubble);
+
+    // Animate fade in + scale
+    setTimeout(() => { bubble.style.opacity = 1; bubble.style.transform = "scale(1)"; }, 50);
+
+    // Fade out after 2s
     setTimeout(() => {
         bubble.style.opacity = 0;
-        bubble.style.transform = "scale(1)";
-    }, 1500);
+        bubble.style.transform = "scale(0.8)";
+        setTimeout(() => { bubble.remove(); }, 300);
+    }, 2000);
 }
 
 function noClick() {
@@ -149,9 +153,9 @@ function noClick() {
   else if (noCount === 2) showNoMessage("Are you sure? 😳");
   else if (noCount === 3) showNoMessage("Sorry 😌 You don’t have rights to click NO!");
   else if (noCount === 4) {
-    showNoMessage("STOP IT 😤 Shut up and click YES now!");
+    showNoMessage("STOP IT 😤 Just click YES now!");
     const noBtn = document.getElementById("noBtn");
-    noBtn.style.display = "none"; // Make NO button disappear
+    noBtn.style.display = "none"; // disappears
   }
 }
 

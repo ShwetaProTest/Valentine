@@ -39,7 +39,6 @@
     100% { transform: scale(1); }
   }
 
-  /* Close button */
   .close-btn {
     margin-top: 40px;
     padding: 10px 25px;
@@ -53,10 +52,7 @@
     transition: transform 0.3s, box-shadow 0.3s;
   }
 
-  .close-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 20px rgba(231,84,128,0.6);
-  }
+  .close-btn:hover { transform: scale(1.1); box-shadow: 0 8px 20px rgba(231,84,128,0.6); }
 </style>
 </head>
 
@@ -72,10 +68,8 @@ I can’t wait to hug you tight and celebrate our love today 🥰🎉
 
 <div class="heart">❤️</div>
 
-<!-- Close Button -->
 <button class="close-btn" onclick="closePage()">Close 💌</button>
 
-<!-- Romantic music -->
 <audio autoplay loop>
   <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
@@ -83,13 +77,8 @@ I can’t wait to hug you tight and celebrate our love today 🥰🎉
 
 <script>
 function closePage() {
-  // Try to close the tab
   window.close();
-  
-  // Fallback: redirect to main page
-  setTimeout(() => {
-    window.location.href = "index.html";
-  }, 200);
+  setTimeout(() => { window.location.href = "index.html"; }, 200);
 }
 </script>
 
