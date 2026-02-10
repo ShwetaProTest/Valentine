@@ -11,6 +11,7 @@
     background-color: #fff0f5;
     padding: 50px;
     overflow: hidden;
+    position: relative;
   }
 
   h1 { color: #e75480; font-size: 3em; }
@@ -18,9 +19,9 @@
 
   /* Button styles */
   .btn {
-    padding: 12px 25px;          /* smaller padding */
-    font-size: 16px;             /* smaller font */
-    border-radius: 50px;         /* pill shape */
+    padding: 12px 25px;          
+    font-size: 16px;             
+    border-radius: 50px;         
     color: white;
     margin: 10px;
     cursor: pointer;
@@ -28,6 +29,8 @@
     transition: all 0.3s ease;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
   }
 
   .yes {
@@ -36,7 +39,6 @@
 
   .no {
     background: linear-gradient(45deg, #bbb, #888);
-    position: relative;
   }
 
   .yes:hover {
@@ -47,13 +49,6 @@
   .no:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 20px rgba(136,136,136,0.6);
-  }
-
-  .no:disabled {
-    background: #ccc !important;
-    cursor: not-allowed;
-    box-shadow: none;
-    opacity: 0.5;
   }
 
   /* Floating hearts */
@@ -68,6 +63,21 @@
   @keyframes float {
     0% { transform: translateY(0); opacity: 1; }
     100% { transform: translateY(-100vh); opacity: 0; }
+  }
+
+  /* NO popup message bubble */
+  #no-message {
+    position: absolute;
+    padding: 10px 15px;
+    background: #ff77a9;
+    color: white;
+    border-radius: 15px;
+    font-size: 14px;
+    display: none;
+    pointer-events: none;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s, opacity 0.3s;
+    z-index: 2;
   }
 </style>
 </head>
@@ -88,6 +98,9 @@
 <button class="btn yes" id="yesBtn" onclick="yesClick()">Yes 💖</button>
 <button class="btn no" id="noBtn" onclick="noClick()" onmouseover="moveNo()">No ❌</button>
 
+<!-- NO popup container -->
+<div id="no-message"></div>
+
 <!-- Confetti library -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -101,10 +114,30 @@ function yesClick() {
     spread: 120,
     startVelocity: 45
   });
-
   setTimeout(() => {
     window.location.href = "yes.html";
   }, 1200);
+}
+
+function showNoMessage(msg) {
+    const bubble = document.getElementById("no-message");
+    const noBtn = document.getElementById("noBtn");
+
+    bubble.innerText = msg;
+    bubble.style.display = "block";
+
+    // Position near NO button
+    const rect = noBtn.getBoundingClientRect();
+    bubble.style.top = (rect.top - 50) + "px"; 
+    bubble.style.left = (rect.left + rect.width / 2 - bubble.offsetWidth / 2) + "px";
+
+    // Animate fade in + out
+    bubble.style.opacity = 1;
+    bubble.style.transform = "scale(1.1)";
+    setTimeout(() => {
+        bubble.style.opacity = 0;
+        bubble.style.transform = "scale(1)";
+    }, 1500);
 }
 
 function noClick() {
@@ -112,15 +145,13 @@ function noClick() {
   yesScale += 0.15;
   document.getElementById("yesBtn").style.transform = `scale(${yesScale})`;
 
-  if (noCount === 1) alert("Really? 🥺");
-  else if (noCount === 2) alert("Are you sure? 😳");
-  else if (noCount === 3) alert("Sorry 😌 You don’t have rights to click NO!");
+  if (noCount === 1) showNoMessage("Really? 🥺");
+  else if (noCount === 2) showNoMessage("Are you sure? 😳");
+  else if (noCount === 3) showNoMessage("Sorry 😌 You don’t have rights to click NO!");
   else if (noCount === 4) {
-    alert("STOP IT 😤 Shut up and click YES now!");
+    showNoMessage("STOP IT 😤 Shut up and click YES now!");
     const noBtn = document.getElementById("noBtn");
-    noBtn.disabled = true;
-    noBtn.style.opacity = "0.4";
-    noBtn.style.cursor = "not-allowed";
+    noBtn.style.display = "none"; // Make NO button disappear
   }
 }
 
