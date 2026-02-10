@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>My Valentine 💖</title>
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Raleway:wght@700&display=swap" rel="stylesheet">
 
 <style>
-/* --- Reset some defaults --- */
+/* Reset some defaults */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -18,14 +19,14 @@
 body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
-    background: linear-gradient(to bottom right, #ffe6f0, #fff7fc);
+    background: linear-gradient(to bottom right, #ffe6f0, #fff7fc); /* soft gradient background */
     color: #333;
     overflow-x: hidden;
     padding: 40px 20px;
     min-height: 100vh;
 }
 
-/* --- Responsive Heading --- */
+/* Responsive Heading */
 h1.romantic-heading {
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
@@ -37,7 +38,6 @@ h1.romantic-heading {
     letter-spacing: 1px;
 }
 
-/* Fade + zoom animation */
 @keyframes fadeZoom {
     0% { opacity: 0; transform: scale(0.8); }
     100% { opacity: 1; transform: scale(1); }
@@ -62,7 +62,7 @@ p {
 .close-btn {
     margin-top: 15px;
     padding: 8px 18px;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px);
     border-radius: 40px;
     background: linear-gradient(45deg, #d1476f, #ff9ab0);
     color: white;
@@ -78,13 +78,13 @@ p {
     background: linear-gradient(45deg, #ff9ab0, #d1476f);
 }
 
-/* Floating small hearts in background */
+/* Floating background hearts */
 .floating-heart {
     position: absolute;
     width: 12px;
     height: 12px;
     background-color: #ff9ab0;
-    clip-path: polygon(50% 0%, 61% 18%, 80% 18%, 69% 32%, 75% 50%, 50% 42%, 25% 50%, 31% 32%, 20% 18%, 39% 18%);
+    clip-path: path('M7.5,0 C7.5,-2 15,-2 15,5 C15,12 7.5,15 7.5,15 C7.5,15 0,12 0,5 C0,-2 7.5,-2 7.5,0 Z');
     opacity: 0.6;
     animation: floatHeart linear infinite;
 }
@@ -112,22 +112,13 @@ Love youuuu 😘
 
 <button class="close-btn" onclick="closePage()">Close 💌</button>
 
-<!-- Background Music -->
-<audio id="bgMusic" autoplay loop>
+<!-- Romantic Music -->
+<audio autoplay loop>
   <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 
 <script>
-// Ensure music plays on mobile (after first click)
-document.body.addEventListener('click', () => {
-    const music = document.getElementById('bgMusic');
-    if (music.paused) {
-        music.play().catch(()=>console.log("Autoplay blocked"));
-    }
-}, { once: true });
-
-// Close page function
 function closePage() {
     window.close();
     setTimeout(() => { window.location.href = "index.html"; }, 200);
@@ -135,7 +126,7 @@ function closePage() {
 
 // SR heart animation
 const container = document.getElementById("heart-container");
-const heartSize = 120; // fixed size
+const heartSize = 120; // fixed heart size
 const fontSize = 13;   // fixed font size
 
 function animateHeart() {
@@ -163,7 +154,7 @@ function animateHeart() {
     text.textContent = "SR";
     svg.appendChild(text);
 
-    // Pulse animation
+    // pulse animation
     svg.style.opacity = 0;
     svg.style.transform = "scale(0)";
     svg.style.transition = "all 0.5s ease";
@@ -184,7 +175,6 @@ function animateHeart() {
     }, 3000);
 }
 
-// Repeat every 3.5 seconds
 setInterval(animateHeart, 3500);
 animateHeart();
 
