@@ -84,8 +84,10 @@ function closePage() {
 }
 
 const container = document.getElementById("heart-container");
-let heartSize = 120; // initial heart size
-let fontSize = 36;   // SR font size in px
+
+// Fixed heart size and SR font size
+const heartSize = 120; // px
+const fontSize = 36;   // px
 
 function animateHeart() {
     container.innerHTML = "";
@@ -97,7 +99,7 @@ function animateHeart() {
     svg.setAttribute("height", heartSize);
     svg.setAttribute("viewBox", "0 0 32 29.6");
 
-    // Heart path (fancier, more symmetrical)
+    // Heart path
     const path = document.createElementNS(svgNS, "path");
     path.setAttribute("d", "M23.6,0c-2.9,0-5.6,1.7-7.6,4.3C13.9,1.7,11.2,0,8.3,0C3.7,0,0,3.7,0,8.3c0,9.1,16,21.3,16,21.3S32,17.4,32,8.3 C32,3.7,28.3,0,23.6,0z");
     path.setAttribute("fill", "#d1476f");
@@ -105,9 +107,8 @@ function animateHeart() {
 
     // SR text
     const text = document.createElementNS(svgNS, "text");
-    text.setAttribute("x", "16"); // center of viewBox
+    text.setAttribute("x", "16"); // center
     text.setAttribute("y", "17"); // vertical center
-    text.setAttribute("class", "heart-text");
     text.setAttribute("font-size", fontSize);
     text.setAttribute("fill", "#fff");
     text.setAttribute("text-anchor", "middle");
@@ -116,27 +117,21 @@ function animateHeart() {
     text.textContent = "SR";
     svg.appendChild(text);
 
-    // Initial invisible + scale
+    // Animate
     svg.style.opacity = 0;
     svg.style.transform = "scale(0)";
     svg.style.transition = "all 0.5s ease";
     container.appendChild(svg);
 
-    // Animate in
     setTimeout(() => {
         svg.style.opacity = 1;
         svg.style.transform = "scale(1)";
     }, 50);
 
-    // Animate out after 3 seconds
     setTimeout(() => {
         svg.style.opacity = 0;
         svg.style.transform = "scale(0)";
     }, 3000);
-
-    // Increase size for next heart
-    heartSize += 15;
-    fontSize += 5; // adjust SR size proportionally
 }
 
 // Repeat every 3.5 seconds
