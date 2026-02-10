@@ -32,9 +32,9 @@ p {
 
 #heart-container {
     position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 40px auto; /* below text */
+    width: 300px;
+    height: 300px;
+    margin: 40px auto;
 }
 
 .heart {
@@ -48,10 +48,10 @@ p {
     color: white;
     font-family: 'Great Vibes', cursive;
     font-size: 1.5em;
+    margin: auto;
     opacity: 0;
     transform: scale(0);
-    transition: transform 0.3s, opacity 0.3s;
-    margin: auto;
+    transition: all 0.5s ease;
 }
 
 .close-btn {
@@ -84,10 +84,8 @@ Thank you for being my forever Valentine 💌<br>
 I can’t wait to hug you tight and celebrate our love today 🥰🎉
 </p>
 
-<!-- Heart Animation Container -->
 <div id="heart-container"></div>
 
-<!-- Close Button -->
 <button class="close-btn" onclick="closePage()">Close 💌</button>
 
 <audio autoplay loop>
@@ -102,15 +100,21 @@ function closePage() {
 }
 
 const container = document.getElementById("heart-container");
+let heartSize = 80; // initial size
+let fontSize = 1.5; // initial font size
 
 function animateHeart() {
-    // Remove previous heart if exists
+    // Remove previous heart
     container.innerHTML = "";
 
     // Create new heart
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerText = "SR";
+    heart.style.width = heartSize + "px";
+    heart.style.height = heartSize + "px";
+    heart.style.fontSize = fontSize + "em";
+
     container.appendChild(heart);
 
     // Animate in
@@ -119,15 +123,22 @@ function animateHeart() {
         heart.style.transform = "scale(1)";
     }, 50);
 
-    // Animate out after 1s
+    // After 3 seconds, animate out
     setTimeout(() => {
         heart.style.opacity = 0;
         heart.style.transform = "scale(0)";
-    }, 1000);
+    }, 3000);
+
+    // Increase size for next heart
+    heartSize += 10;  // bigger heart next time
+    fontSize += 0.2;  // bigger SR
 }
 
-// Repeat heart animation every 1.2 seconds
-setInterval(animateHeart, 1200);
+// Repeat every 3.5 seconds
+setInterval(animateHeart, 3500);
+
+// Start immediately
+animateHeart();
 </script>
 
 </body>
