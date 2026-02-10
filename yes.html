@@ -5,7 +5,7 @@
 <title>My Valentine 💖</title>
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 body {
@@ -17,13 +17,14 @@ body {
     overflow: hidden; /* prevent scrollbars from floating hearts */
 }
 
-h1 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 4em;
+h1.romantic-heading {
+    font-family: 'Parisienne', cursive;
+    font-size: 4.5em;
     color: #d1476f;
     margin-bottom: 15px;
     animation: fadeZoom 2s ease forwards;
     opacity: 0;
+    letter-spacing: 2px;
 }
 
 @keyframes fadeZoom {
@@ -85,7 +86,7 @@ p {
 
 <body>
 
-<h1>Yay! I knew You would say YES! 💖</h1>
+<h1 class="romantic-heading">Yay! I knew You would say YES! 💖</h1>
 
 <p>
 My heart is dancing with joy 😘<br>
@@ -109,10 +110,10 @@ function closePage() {
     setTimeout(() => { window.location.href = "index.html"; }, 200);
 }
 
-// Heart animation
+// SR heart animation
 const container = document.getElementById("heart-container");
 const heartSize = 120; // fixed
-const fontSize = 12;   // fixed
+const fontSize = 13;   // fixed
 
 function animateHeart() {
     container.innerHTML = "";
@@ -135,7 +136,7 @@ function animateHeart() {
     text.setAttribute("fill", "#fff");
     text.setAttribute("text-anchor", "middle");
     text.setAttribute("dominant-baseline", "middle");
-    text.setAttribute("font-family", "'Great Vibes', cursive");
+    text.setAttribute("font-family", "'Parisienne', cursive");
     text.textContent = "SR";
     svg.appendChild(text);
 
