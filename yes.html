@@ -21,7 +21,6 @@
     font-family: 'Great Vibes', cursive;
     font-size: 3.5em;
     color: #d1476f;
-    text-shadow: 2px 2px 8px rgba(209,71,111,0.4);
     margin-bottom: 30px;
   }
 
@@ -32,32 +31,43 @@
     line-height: 1.6;
   }
 
-  /* SR Heart Animation */
-  #sr-container {
+  /* SR Heart Container */
+  #heart-container {
     position: relative;
-    display: inline-block;
-    font-size: 4em;
-    margin-top: 40px;
-    font-family: 'Great Vibes', cursive;
-    color: #d1476f;
+    width: 200px;
+    height: 200px;
+    margin: 50px auto 0 auto;
   }
 
-  .floating-heart {
+  .heart {
     position: absolute;
-    font-size: 1.5em;
-    animation: floatHeart 2.5s linear infinite;
-    color: #ff6680;
+    width: 200px;
+    height: 200px;
+    background: #d1476f;
+    clip-path: path('M 100 30
+                     C 100 0, 200 0, 200 70
+                     C 200 150, 100 200, 100 200
+                     C 100 200, 0 150, 0 70
+                     C 0 0, 100 0, 100 30 Z');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Great Vibes', cursive;
+    font-size: 3em;
+    opacity: 0;
+    transform: scale(0);
+    animation: popHeart 1s forwards;
   }
 
-  @keyframes floatHeart {
-    0% { transform: translate(0,0) scale(0.6); opacity: 0; }
-    20% { opacity: 1; }
-    100% { transform: translate(var(--x), var(--y)) scale(1); opacity: 0; }
+  @keyframes popHeart {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
   }
 
-  /* Close button */
   .close-btn {
-    margin-top: 60px;
+    margin-top: 40px;
     padding: 8px 18px;
     font-size: 14px;
     border-radius: 40px;
@@ -83,8 +93,8 @@ Thank you for being my forever Valentine 💌<br>
 I can’t wait to hug you tight and celebrate our love today 🥰🎉
 </p>
 
-<!-- SR Heart -->
-<div id="sr-container">SR</div>
+<!-- Animated Heart with SR -->
+<div id="heart-container"></div>
 
 <button class="close-btn" onclick="closePage()">Close 💌</button>
 
@@ -99,30 +109,18 @@ function closePage() {
   setTimeout(() => { window.location.href = "index.html"; }, 200);
 }
 
-// Floating hearts around SR
-const srContainer = document.getElementById("sr-container");
+// Create repeated hearts with SR inside
+const container = document.getElementById("heart-container");
 
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "floating-heart";
-  heart.innerHTML = "❤️";
+let heartInterval = setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "SR";
+    container.appendChild(heart);
 
-  // Randomize direction around SR
-  const angle = Math.random() * 2 * Math.PI;
-  const radius = 50 + Math.random() * 30; // distance from SR
-  const x = Math.cos(angle) * radius + "px";
-  const y = Math.sin(angle) * radius + "px";
-
-  heart.style.setProperty("--x", x);
-  heart.style.setProperty("--y", y);
-
-  srContainer.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 2500);
-}
-
-// Generate multiple hearts every 300ms
-setInterval(createHeart, 300);
+    // Remove heart after 2s to repeat
+    setTimeout(() => { heart.remove(); }, 2000);
+}, 500); // new heart every 0.5s
 </script>
 
 </body>
