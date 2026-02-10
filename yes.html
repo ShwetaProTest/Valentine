@@ -14,6 +14,7 @@ body {
     background: linear-gradient(to bottom right, #ffe6f0, #fff7fc);
     padding: 60px 20px;
     color: #333;
+    overflow: hidden; /* prevent scrollbars from floating hearts */
 }
 
 h1 {
@@ -21,6 +22,13 @@ h1 {
     font-size: 4em;
     color: #d1476f;
     margin-bottom: 15px;
+    animation: fadeZoom 2s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeZoom {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
 }
 
 p {
@@ -47,12 +55,30 @@ p {
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
 }
 
 .close-btn:hover { 
     transform: scale(1.05); 
-    box-shadow: 0 6px 18px rgba(209,71,111,0.5); 
+    box-shadow: 0 6px 18px rgba(209,71,111,0.5);
+    background: linear-gradient(45deg, #ff9ab0, #d1476f);
+}
+
+/* Floating small hearts in background */
+.floating-heart {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #ff9ab0;
+    clip-path: path('M7.5,0 C7.5,-2 15,-2 15,5 C15,12 7.5,15 7.5,15 C7.5,15 0,12 0,5 C0,-2 7.5,-2 7.5,0 Z');
+    opacity: 0.6;
+    animation: floatHeart linear infinite;
+}
+
+@keyframes floatHeart {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+    50% { transform: translateY(-50px) rotate(180deg); opacity: 0.8; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
 }
 </style>
 </head>
@@ -83,32 +109,28 @@ function closePage() {
     setTimeout(() => { window.location.href = "index.html"; }, 200);
 }
 
+// Heart animation
 const container = document.getElementById("heart-container");
-
-// Fixed heart size and SR font size
-const heartSize = 120; // px
-const fontSize = 6;   // px
+const heartSize = 120; // fixed
+const fontSize = 12;   // fixed
 
 function animateHeart() {
     container.innerHTML = "";
 
-    // Create SVG heart
     const svgNS = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(svgNS, "svg");
     svg.setAttribute("width", heartSize);
     svg.setAttribute("height", heartSize);
     svg.setAttribute("viewBox", "0 0 32 29.6");
 
-    // Heart path
     const path = document.createElementNS(svgNS, "path");
     path.setAttribute("d", "M23.6,0c-2.9,0-5.6,1.7-7.6,4.3C13.9,1.7,11.2,0,8.3,0C3.7,0,0,3.7,0,8.3c0,9.1,16,21.3,16,21.3S32,17.4,32,8.3 C32,3.7,28.3,0,23.6,0z");
     path.setAttribute("fill", "#d1476f");
     svg.appendChild(path);
 
-    // SR text
     const text = document.createElementNS(svgNS, "text");
-    text.setAttribute("x", "16"); // center
-    text.setAttribute("y", "17"); // vertical center
+    text.setAttribute("x", "16");
+    text.setAttribute("y", "17");
     text.setAttribute("font-size", fontSize);
     text.setAttribute("fill", "#fff");
     text.setAttribute("text-anchor", "middle");
@@ -117,7 +139,7 @@ function animateHeart() {
     text.textContent = "SR";
     svg.appendChild(text);
 
-    // Animate
+    // pulse animation
     svg.style.opacity = 0;
     svg.style.transform = "scale(0)";
     svg.style.transition = "all 0.5s ease";
@@ -125,8 +147,12 @@ function animateHeart() {
 
     setTimeout(() => {
         svg.style.opacity = 1;
-        svg.style.transform = "scale(1)";
+        svg.style.transform = "scale(1.1)";
     }, 50);
+
+    setTimeout(() => {
+        svg.style.transform = "scale(1)";
+    }, 500);
 
     setTimeout(() => {
         svg.style.opacity = 0;
@@ -134,9 +160,25 @@ function animateHeart() {
     }, 3000);
 }
 
-// Repeat every 3.5 seconds
 setInterval(animateHeart, 3500);
 animateHeart();
+
+// Floating background hearts
+function createFloatingHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'floating-heart';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.top = window.innerHeight + 'px';
+    heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 10000);
+}
+
+setInterval(createFloatingHeart, 500);
+
 </script>
 
 </body>
