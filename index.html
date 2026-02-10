@@ -27,6 +27,10 @@
     transition: transform 0.3s;
   }
 
+  .btn:hover {
+    transform: scale(1.1);
+  }
+
   .yes { background-color: #e75480; }
   .no {
     background-color: #aaa;
@@ -52,12 +56,19 @@
 <body>
 
 <h1>Happy Valentine’s Day 💖</h1>
-<p>Hey love 😘 I have a question for you…</p>
+
+<!-- Cute Bunny Image -->
+<img src="https://i.imgur.com/Tw6Yd5T.png" 
+     alt="Cute Bunny" 
+     style="width:200px; margin-bottom:20px; border-radius:20px;">
+
+<p>Hey love 😘 I have a very important question for you…</p>
 <h2>Will you be my Valentine? 💌</h2>
 
 <button class="btn yes" id="yesBtn" onclick="yesClick()">Yes 💖</button>
 <button class="btn no" id="noBtn" onclick="noClick()" onmouseover="moveNo()">No ❌</button>
 
+<!-- Confetti library -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
