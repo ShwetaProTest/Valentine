@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine Surprise 💖</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #fff0f5;
+      padding: 50px;
+    }
+    h1 { color: #e75480; font-size: 3em; }
+    h2 { color: #e75480; font-size: 2em; margin-top: 20px; }
+    .btn {
+      padding: 15px 30px;
+      font-size: 20px;
+      border-radius: 8px;
+      color: white;
+      text-decoration: none;
+      margin: 10px;
+      display: inline-block;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .btn:hover { transform: scale(1.1); }
+    .yes { background-color: #e75480; }
+    .no { background-color: #aaa; }
+    #message { font-size: 1.5em; color: #333; margin-top: 30px; display: none; }
+  </style>
+</head>
+<body>
+
+  <h1>Happy Valentine's Day! 💖</h1>
+  <p>Hey love, I have a question for you... 😘</p>
+  <h2>Will you be my Valentine? 💌</h2>
+
+  <div>
+    <button class="btn yes" onclick="showMessage()">Yes 💖</button>
+    <button class="btn no" onclick="trickNo()">No ❌</button>
+  </div>
+
+  <div id="message">
+    I knew you would say Yes! 💖 Thanks for being my Valentine. Come home, we’ll celebrate today! 🎉
+  </div>
+
+  <script>
+    function showMessage() {
+      document.getElementById('message').style.display = 'block';
+    }
+
+    function trickNo() {
+      alert("Oops 😜 There is only one answer! Click Yes! 💖");
+    }
+  </script>
+
+</body>
+</html>
