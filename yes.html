@@ -2,102 +2,88 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Valentine 💖</title>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Raleway:wght@700&display=swap" rel="stylesheet">
 
 <style>
-/* --- Reset some defaults --- */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 body {
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    background: linear-gradient(to bottom right, #ffe6f0, #fff7fc);
-    color: #333;
-    overflow-x: hidden;
-    padding: 40px 20px;
+  font-family:'Poppins',sans-serif;
+  text-align:center;
+  background:linear-gradient(to bottom right,#ffe6f0,#fff7fc);
+  padding:5vw 5vw;
+  color:#333;
+  overflow-x:hidden;
 }
 
-/* --- Responsive Heading --- */
-h1.romantic-heading {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 700;
-    font-size: clamp(2.5rem, 6vw, 4rem); /* responsive font size */
-    color: #d1476f;
-    margin-bottom: 15px;
-    animation: fadeZoom 2s ease forwards;
-    opacity: 0;
-    letter-spacing: 1px;
+h1.romantic-heading{
+  font-family:'Raleway',sans-serif;
+  font-weight:700;
+  font-size:clamp(2.5rem,6vw,4rem);
+  color:#d1476f;
+  margin-bottom:15px;
+  animation:fadeZoom 2s ease forwards;
+  opacity:0;
 }
 
-/* Fade + zoom animation */
-@keyframes fadeZoom {
-    0% { opacity: 0; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1); }
+@keyframes fadeZoom{
+  0%{opacity:0; transform:scale(0.8);}
+  100%{opacity:1; transform:scale(1);}
 }
 
-p {
-    font-size: clamp(1rem, 2.5vw, 1.6rem);
-    margin-top: 10px;
-    color: #5a3a4a;
-    line-height: 1.6;
+p{
+  font-size:clamp(1rem,3vw,1.6rem);
+  margin-top:10px;
+  color:#5a3a4a;
+  line-height:1.6;
 }
 
-/* Heart container */
-#heart-container {
-    position: relative;
-    width: clamp(150px, 30vw, 220px);
-    height: clamp(150px, 30vw, 220px);
-    margin: 30px auto;
+#heart-container{
+  position:relative;
+  width:clamp(150px,30vw,220px);
+  height:clamp(150px,30vw,220px);
+  margin:30px auto;
 }
 
-/* Close button */
-.close-btn {
-    margin-top: 15px;
-    padding: 8px 18px;
-    font-size: 14px;
-    border-radius: 40px;
-    background: linear-gradient(45deg, #d1476f, #ff9ab0);
-    color: white;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+.close-btn{
+  margin-top:15px;
+  padding:clamp(6px,2vw,10px) clamp(12px,4vw,18px);
+  font-size:clamp(12px,3vw,14px);
+  border-radius:40px;
+  background:linear-gradient(45deg,#d1476f,#ff9ab0);
+  color:white;
+  border:none;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
 }
 
-.close-btn:hover { 
-    transform: scale(1.05); 
-    box-shadow: 0 6px 18px rgba(209,71,111,0.5);
-    background: linear-gradient(45deg, #ff9ab0, #d1476f);
+.close-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 6px 18px rgba(209,71,111,0.5);
+  background:linear-gradient(45deg,#ff9ab0,#d1476f);
 }
 
-/* Floating small hearts in background */
-.floating-heart {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background-color: #ff9ab0;
-    clip-path: path('M7.5,0 C7.5,-2 15,-2 15,5 C15,12 7.5,15 7.5,15 C7.5,15 0,12 0,5 C0,-2 7.5,-2 7.5,0 Z');
-    opacity: 0.6;
-    animation: floatHeart linear infinite;
+.floating-heart{
+  position:absolute;
+  width:clamp(8px,3vw,12px);
+  height:clamp(8px,3vw,12px);
+  background-color:#ff9ab0;
+  clip-path:path('M7.5,0 C7.5,-2 15,-2 15,5 C15,12 7.5,15 7.5,15 C7.5,15 0,12 0,5 C0,-2 7.5,-2 7.5,0 Z');
+  opacity:0.6;
+  animation:floatHeart linear infinite;
 }
 
-@keyframes floatHeart {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-    50% { transform: translateY(-50px) rotate(180deg); opacity: 0.8; }
-    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+@keyframes floatHeart{
+  0%{transform:translateY(0) rotate(0deg); opacity:0.6;}
+  50%{transform:translateY(-50px) rotate(180deg); opacity:0.8;}
+  100%{transform:translateY(-100px) rotate(360deg); opacity:0;}
 }
 </style>
 </head>
 
 <body>
-
 <h1 class="romantic-heading">Yay! I knew You would say YES! 💖</h1>
 
 <p>
@@ -108,91 +94,67 @@ Love youuuu 😘
 </p>
 
 <div id="heart-container"></div>
-
 <button class="close-btn" onclick="closePage()">Close 💌</button>
 
 <audio autoplay loop>
   <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
 </audio>
 
 <script>
-function closePage() {
-    window.close();
-    setTimeout(() => { window.location.href = "index.html"; }, 200);
+function closePage(){ window.close(); setTimeout(()=>{window.location.href="index.html";},200); }
+
+const container=document.getElementById("heart-container");
+const heartSize=120;
+const fontSize=13;
+
+function animateHeart(){
+  container.innerHTML="";
+  const svgNS="http://www.w3.org/2000/svg";
+  const svg=document.createElementNS(svgNS,"svg");
+  svg.setAttribute("width",heartSize);
+  svg.setAttribute("height",heartSize);
+  svg.setAttribute("viewBox","0 0 32 29.6");
+
+  const path=document.createElementNS(svgNS,"path");
+  path.setAttribute("d","M23.6,0c-2.9,0-5.6,1.7-7.6,4.3C13.9,1.7,11.2,0,8.3,0C3.7,0,0,3.7,0,8.3c0,9.1,16,21.3,16,21.3S32,17.4,32,8.3 C32,3.7,28.3,0,23.6,0z");
+  path.setAttribute("fill","#d1476f");
+  svg.appendChild(path);
+
+  const text=document.createElementNS(svgNS,"text");
+  text.setAttribute("x","16");
+  text.setAttribute("y","17");
+  text.setAttribute("font-size",fontSize);
+  text.setAttribute("fill","#fff");
+  text.setAttribute("text-anchor","middle");
+  text.setAttribute("dominant-baseline","middle");
+  text.setAttribute("font-family","'Poppins',sans-serif");
+  text.textContent="SR";
+  svg.appendChild(text);
+
+  svg.style.opacity=0;
+  svg.style.transform="scale(0)";
+  svg.style.transition="all 0.5s ease";
+  container.appendChild(svg);
+
+  setTimeout(()=>{ svg.style.opacity=1; svg.style.transform="scale(1.1)"; },50);
+  setTimeout(()=>{ svg.style.transform="scale(1)"; },500);
+  setTimeout(()=>{ svg.style.opacity=0; svg.style.transform="scale(0)"; },3000);
 }
 
-// SR heart animation
-const container = document.getElementById("heart-container");
-const heartSize = 120; // px
-const fontSize = 13;   // px
-
-function animateHeart() {
-    container.innerHTML = "";
-
-    const svgNS = "http://www.w3.org/2000/svg";
-    const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("width", heartSize);
-    svg.setAttribute("height", heartSize);
-    svg.setAttribute("viewBox", "0 0 32 29.6");
-
-    const path = document.createElementNS(svgNS, "path");
-    path.setAttribute("d", "M23.6,0c-2.9,0-5.6,1.7-7.6,4.3C13.9,1.7,11.2,0,8.3,0C3.7,0,0,3.7,0,8.3c0,9.1,16,21.3,16,21.3S32,17.4,32,8.3 C32,3.7,28.3,0,23.6,0z");
-    path.setAttribute("fill", "#d1476f");
-    svg.appendChild(path);
-
-    const text = document.createElementNS(svgNS, "text");
-    text.setAttribute("x", "16");
-    text.setAttribute("y", "17");
-    text.setAttribute("font-size", fontSize);
-    text.setAttribute("fill", "#fff");
-    text.setAttribute("text-anchor", "middle");
-    text.setAttribute("dominant-baseline", "middle");
-    text.setAttribute("font-family", "'Poppins', sans-serif");
-    text.textContent = "SR";
-    svg.appendChild(text);
-
-    // pulse animation
-    svg.style.opacity = 0;
-    svg.style.transform = "scale(0)";
-    svg.style.transition = "all 0.5s ease";
-    container.appendChild(svg);
-
-    setTimeout(() => {
-        svg.style.opacity = 1;
-        svg.style.transform = "scale(1.1)";
-    }, 50);
-
-    setTimeout(() => {
-        svg.style.transform = "scale(1)";
-    }, 500);
-
-    setTimeout(() => {
-        svg.style.opacity = 0;
-        svg.style.transform = "scale(0)";
-    }, 3000);
-}
-
-setInterval(animateHeart, 3500);
+setInterval(animateHeart,3500);
 animateHeart();
 
-// Floating background hearts
-function createFloatingHeart() {
-    const heart = document.createElement('div');
-    heart.className = 'floating-heart';
-    heart.style.left = Math.random() * window.innerWidth + 'px';
-    heart.style.top = window.innerHeight + 'px';
-    heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 10000);
+/* Floating hearts */
+function createFloatingHeart(){
+  const heart=document.createElement('div');
+  heart.className='floating-heart';
+  heart.style.left=Math.random()*100+'vw';
+  heart.style.top=window.innerHeight+'px';
+  heart.style.animationDuration=(5+Math.random()*5)+'s';
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),10000);
 }
-
-setInterval(createFloatingHeart, 500);
-
+setInterval(createFloatingHeart,500);
 </script>
-
 </body>
 </html>
