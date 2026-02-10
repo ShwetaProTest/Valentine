@@ -5,47 +5,59 @@
 <title>My Valentine 💖</title>
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Raleway:wght@700&display=swap" rel="stylesheet">
 
 <style>
+/* --- Reset some defaults --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
     background: linear-gradient(to bottom right, #ffe6f0, #fff7fc);
-    padding: 60px 20px;
     color: #333;
-    overflow: hidden; /* prevent scrollbars from floating hearts */
+    overflow-x: hidden;
+    padding: 40px 20px;
 }
 
+/* --- Responsive Heading --- */
 h1.romantic-heading {
-    font-family: 'Parisienne', cursive;
-    font-size: 4.5em;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 4rem); /* responsive font size */
     color: #d1476f;
     margin-bottom: 15px;
     animation: fadeZoom 2s ease forwards;
     opacity: 0;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
+/* Fade + zoom animation */
 @keyframes fadeZoom {
     0% { opacity: 0; transform: scale(0.8); }
     100% { opacity: 1; transform: scale(1); }
 }
 
 p {
-    font-size: 1.6em;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
     margin-top: 10px;
     color: #5a3a4a;
     line-height: 1.6;
 }
 
+/* Heart container */
 #heart-container {
     position: relative;
-    width: 220px;
-    height: 220px;
+    width: clamp(150px, 30vw, 220px);
+    height: clamp(150px, 30vw, 220px);
     margin: 30px auto;
 }
 
+/* Close button */
 .close-btn {
     margin-top: 15px;
     padding: 8px 18px;
@@ -68,8 +80,8 @@ p {
 /* Floating small hearts in background */
 .floating-heart {
     position: absolute;
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     background-color: #ff9ab0;
     clip-path: path('M7.5,0 C7.5,-2 15,-2 15,5 C15,12 7.5,15 7.5,15 C7.5,15 0,12 0,5 C0,-2 7.5,-2 7.5,0 Z');
     opacity: 0.6;
@@ -112,8 +124,8 @@ function closePage() {
 
 // SR heart animation
 const container = document.getElementById("heart-container");
-const heartSize = 120; // fixed
-const fontSize = 13;   // fixed
+const heartSize = 120; // px
+const fontSize = 13;   // px
 
 function animateHeart() {
     container.innerHTML = "";
@@ -136,7 +148,7 @@ function animateHeart() {
     text.setAttribute("fill", "#fff");
     text.setAttribute("text-anchor", "middle");
     text.setAttribute("dominant-baseline", "middle");
-    text.setAttribute("font-family", "'Parisienne', cursive");
+    text.setAttribute("font-family", "'Poppins', sans-serif");
     text.textContent = "SR";
     svg.appendChild(text);
 
